@@ -1,87 +1,98 @@
 #include <stdio.h>
 
-// Função para calcular a densidade populacional
-float calcularDensidadePopulacional(int populacao, float area) {
-    return populacao / area;
-}
-
-// Função para calcular o PIB per capita
-float calcularPibPerCapita(float pib, int populacao) {
-    return pib / populacao;
-}
+// Estrutura para armazenar as informações da carta
+struct Carta {
+    char estado;
+    char codigo[4];
+    char nomeCidade[50];
+    int populacao;
+    float area;
+    float pib; // Em bilhões de reais
+    int pontosTuristicos;
+    float densidadePopulacional;
+    float pibPerCapita;
+};
 
 int main() {
-    char estado1, estado2; 
-    char codigoCarta1[4], codigoCarta2[4]; 
-    char cidade1[50], cidade2[50]; 
-    int populacao1, populacao2, numeroPontosTuristicos1, numeroPontosTuristicos2; 
-    float area1, area2, pib1, pib2;
+    struct Carta carta1, carta2;
 
-    // Recebendo dados para a primeira carta
-    printf("Digite a letra do estado para a Carta 1: \n");
-    scanf(" %c", &estado1); 
+    // Leitura dos dados da primeira carta
+    printf("Digite os dados da Carta 1:\n");
+    printf("Estado (A-H): ");
+    scanf(" %c", &carta1.estado);
 
-    printf("Digite o código da carta para a Carta 1: \n");
-    scanf("%3s", codigoCarta1); 
+    printf("Codigo da Carta (ex: A01): ");
+    scanf("%s", carta1.codigo);
 
-    printf("Digite o nome da Cidade para a Carta 1: \n");
-    getchar();  // Limpa o buffer antes de ler a string
-    scanf("%[^\n]", cidade1); 
+    printf("Nome da Cidade: ");
+    scanf(" %[^\n]", carta1.nomeCidade);
 
-    printf("Digite o numero da população para a Carta 1: \n");
-    scanf("%d", &populacao1);
+    printf("Populacao: ");
+    scanf("%d", &carta1.populacao);
 
-    printf("Digite a área da cidade em km² para a Carta 1: \n");
-    scanf("%f", &area1);
+    printf("Area (em km²): ");
+    scanf("%f", &carta1.area);
 
-    printf("Digite o PIB para a Carta 1: \n");
-    scanf("%f", &pib1);
+    printf("PIB (em bilhões de reais): ");
+    scanf("%f", &carta1.pib);
 
-    printf("Digite o número de pontos turísticos para a Carta 1: \n");
-    scanf("%d", &numeroPontosTuristicos1);
+    printf("Numero de Pontos Turisticos: ");
+    scanf("%d", &carta1.pontosTuristicos);
 
-    // Recebendo dados para a segunda carta
-    printf("Digite a letra do estado para a Carta 2: \n");
-    scanf(" %c", &estado2); 
+    // Cálculos para a primeira carta
+    carta1.densidadePopulacional = carta1.populacao / carta1.area;
+    carta1.pibPerCapita = (carta1.pib * 1000000000) / carta1.populacao;
 
-    printf("Digite o código da carta para a Carta 2: \n");
-    scanf("%3s", codigoCarta2); 
+    // Leitura dos dados da segunda carta
+    printf("\nDigite os dados da Carta 2:\n");
+    printf("Estado (A-H): ");
+    scanf(" %c", &carta2.estado);
 
-    printf("Digite o nome da Cidade para a Carta 2: \n");
-    getchar();  // Limpa o buffer antes de ler a string
-    scanf("%[^\n]", cidade2); 
+    printf("Codigo da Carta (ex: A01): ");
+    scanf("%s", carta2.codigo);
 
-    printf("Digite o numero da população para a Carta 2: \n");
-    scanf("%d", &populacao2);
+    printf("Nome da Cidade: ");
+    scanf(" %[^\n]", carta2.nomeCidade);
 
-    printf("Digite a área da cidade em km² para a Carta 2: \n");
-    scanf("%f", &area2);
+    printf("Populacao: ");
+    scanf("%d", &carta2.populacao);
 
-    printf("Digite o PIB para a Carta 2: \n");
-    scanf("%f", &pib2);
+    printf("Area (em km²): ");
+    scanf("%f", &carta2.area);
 
-    printf("Digite o número de pontos turísticos para a Carta 2: \n");
-    scanf("%d", &numeroPontosTuristicos2);
+    printf("PIB (em bilhões de reais): ");
+    scanf("%f", &carta2.pib);
 
-    // Cálculos
-    float densidadePopulacional1 = calcularDensidadePopulacional(populacao1, area1);
-    float densidadePopulacional2 = calcularDensidadePopulacional(populacao2, area2);
-    float pibPerCapita1 = calcularPibPerCapita(pib1, populacao1);
-    float pibPerCapita2 = calcularPibPerCapita(pib2, populacao2);
+    printf("Numero de Pontos Turisticos: ");
+    scanf("%d", &carta2.pontosTuristicos);
 
-    // Comparação pelo atributo População
-    printf("\n--- Comparação de Cartas (Atributo: População) ---\n");
+    // Cálculos para a segunda carta
+    carta2.densidadePopulacional = carta2.populacao / carta2.area;
+    carta2.pibPerCapita = (carta2.pib * 1000000000) / carta2.populacao;
 
-    printf("Carta 1 - %s (Estado: %c): População: %d\n", cidade1, estado1, populacao1);
-    printf("Carta 2 - %s (Estado: %c): População: %d\n", cidade2, estado2, populacao2);
+    // Exibição dos dados da primeira carta
+    printf("\nCarta 1:\n");
+    printf("Estado: %c\n", carta1.estado);
+    printf("Codigo: %s\n", carta1.codigo);
+    printf("Nome da Cidade: %s\n", carta1.nomeCidade);
+    printf("Populacao: %d\n", carta1.populacao);
+    printf("Area: %.2f km²\n", carta1.area);
+    printf("PIB: %.2f bilhões de reais\n", carta1.pib);
+    printf("Numero de Pontos Turisticos: %d\n", carta1.pontosTuristicos);
+    printf("Densidade Populacional: %.2f hab/km²\n", carta1.densidadePopulacional);
+    printf("PIB per Capita: %.2f reais\n", carta1.pibPerCapita);
 
-    if (populacao1 > populacao2) {
-        printf("Resultado: Carta 1 (%s) venceu!\n", cidade1);
-    } else if (populacao1 < populacao2) {
-        printf("Resultado: Carta 2 (%s) venceu!\n", cidade2);
-    } else {
-        printf("Resultado: Empate!\n");
-    }
+    // Exibição dos dados da segunda carta
+    printf("\nCarta 2:\n");
+    printf("Estado: %c\n", carta2.estado);
+    printf("Codigo: %s\n", carta2.codigo);
+    printf("Nome da Cidade: %s\n", carta2.nomeCidade);
+    printf("Populacao: %d\n", carta2.populacao);
+    printf("Area: %.2f km²\n", carta2.area);
+    printf("PIB: %.2f bilhões de reais\n", carta2.pib);
+    printf("Numero de Pontos Turisticos: %d\n", carta2.pontosTuristicos);
+    printf("Densidade Populacional: %.2f hab/km²\n", carta2.densidadePopulacional);
+    printf("PIB per Capita: %.2f reais\n", carta2.pibPerCapita);
 
     return 0;
 }
